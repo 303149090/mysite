@@ -7,12 +7,13 @@ from .models import User, EmailVerifyRecord
 from django.views.generic import View
 
 
-def index(request):
+def home(request):
     pass
-    return render(request, 'login/index.html')
+    return render(request, 'login/home.html')
 
 
 def login(request):
+    print('aaaa')
     if request.method == "POST":
         email = request.POST.get('email', None)
         password = request.POST.get('pwd', None)
@@ -24,7 +25,7 @@ def login(request):
                 if email.password == hash_code(password):
                     if email.isactivate == 1:
                         print(email)
-                        return redirect('/index/')
+                        return redirect('/home/')
                     else:
                         message = "User is inactivated!"
                         return render(request, 'login/login.html', {"message": message})
@@ -71,7 +72,7 @@ def register(request):
 
 def logout(request):
     pass
-    return redirect('/index/')
+    return redirect('/home/')
 
 
 def hash_code(s, salt='mysite'):
